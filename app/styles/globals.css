@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .menu-item {
+        @apply flex items-center justify-between px-4 py-2 text-sm text-gray-700 cursor-pointer m-1 rounded-lg transition;
+    }
+
+    .menu-user-avatar {
+        @apply rounded-full w-6 h-6 ;
+    }
+
+    .status-online {
+        @apply w-2 h-2 bg-green-400 rounded-full animate-pulse;
+    }
+
+    .status-offine {
+        @apply w-2 h-2 bg-gray-300 rounded-full;
+    }
+}
