@@ -4,11 +4,15 @@
 
 @layer components {
     .menu-item {
-        @apply flex items-center justify-between px-4 py-2 text-sm text-gray-700 cursor-pointer m-1 rounded-lg transition;
+        @apply flex items-center justify-between px-4 py-2 text-sm text-white bg-black cursor-pointer m-1 rounded-lg transition;
     }
 
     .menu-user-avatar {
         @apply rounded-full w-6 h-6 ;
+    }
+
+    .menu-hover{
+        @apply hover:bg-gray-800;
     }
 
     .status-online {
@@ -18,4 +22,10 @@
     .status-offine {
         @apply w-2 h-2 bg-gray-300 rounded-full;
     }
+
+    body {
+        @apply bg-[#000]/95 overflow-x-hidden;
+    }
+
 }
+

@@ -1,5 +1,8 @@
 import Head from 'next/head';
+import ChatInput from '../components/ChatInput';
+import Chats from '../components/Chats';
 import Header from '../components/Header';
+
 
 export default function Home() {
   return (
@@ -11,6 +14,8 @@ export default function Home() {
       </Head>
       <div>
         <Header />
+        <Chats />
+        <ChatInput />
       </div>
     </div>
   )

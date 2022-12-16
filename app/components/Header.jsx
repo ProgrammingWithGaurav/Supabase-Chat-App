@@ -11,7 +11,7 @@ import {
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-const navigation = [{ name: "Chats", href: "/", current: true }];
+const navigation = [{ name: "Chats", href: "/", current: true }, { name: "Profile", href: "/profile", current: false }];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -35,10 +35,10 @@ const users = [
 export default function Header() {
   const router = useRouter();
   return (
-    <Disclosure as="nav" className="">
+    <Disclosure as="nav">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 sticky">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -46,9 +46,9 @@ export default function Header() {
                 transition hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="sr-only">Open main menu</span>
                   {open ? (
-                    <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                    <XMarkIcon className="block h-6 w-6 text-white" aria-hidden="true" />
                   ) : (
-                    <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                    <Bars3Icon className="block h-6 w-6 text-white" aria-hidden="true" />
                   )}
                 </Disclosure.Button>
               </div>
@@ -56,10 +56,10 @@ export default function Header() {
                 <div className="flex flex-shrink-0 items-center">
                   <ChatBubbleOvalLeftEllipsisIcon
                     onClick={() => router.push("/")}
-                    className="block w-8 h-8 lg:hidden cursor-pointer bg-transparent"
+                    className="block w-8 h-8 lg:hidden cursor-pointer text-white animate-pulse" 
                   />
                   <ChatBubbleOvalLeftEllipsisIcon
-                    className="hidden h-8 w-8 lg:block cursor-pointer"
+                    className="hidden h-8 w-8 lg:block cursor-pointer text-white animate-pulse" 
                     onClick={() => router.push("/")}
                   />
                 </div>
@@ -71,9 +71,9 @@ export default function Header() {
                         href={item.href}
                         className={classNames(
                           item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "px-3 py-2 rounded-md text-sm font-medium"
+                            ? "bg-white text-black"
+                            : "text-gray-300 hover:bg-gray-800 hover:text-white ",
+                          "px-3 py-2 rounded-md text-sm font-medium", "hover:opacity-90"
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
@@ -86,10 +86,10 @@ export default function Header() {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
-                  className="relative rounded-full bg-gray-200 p-1 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="relative rounded-full p-1 text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="sr-only">View notifications</span>
-                  <span className="w-2 h-2 absolute rounded-full animate-pulse bg-red-400"></span>
+                  <span className="w-2 h-2 absolute rounded-full animate-pulse bg-blue-600"></span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
@@ -114,18 +114,18 @@ export default function Header() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-black py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
                           <Link
-                            href="/"
+                            href="/profile"
                             className={classNames(
-                              active ? "bg-gray-100" : "",
+                              active ? "menu-hover" : "",
                               "menu-item"
                             )}
                           >
                             Your Profile
-                            <UserCircleIcon className="w-6 h-6 text-gray-700" />
+                            <UserCircleIcon className="w-6 h-6 text-white" />
                           </Link>
                         )}
                       </Menu.Item>
@@ -133,7 +133,7 @@ export default function Header() {
                         {({ active }) => (
                           <div
                             className={classNames(
-                              active ? "bg-gray-100" : "",
+                              active ? "menu-hover" : "",
                               "menu-item"
                             )}
                           >
@@ -150,7 +150,7 @@ export default function Header() {
                             <Link
                               href={`/chat/${user.id}`}
                               className={classNames(
-                                active ? "bg-gray-100" : "",
+                                active ? "menu-hover" : "",
                                 "menu-item"
                               )}
                             >
@@ -158,8 +158,8 @@ export default function Header() {
                               <p
                                 href="/"
                                 className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm font-bold cursor-pointer text-gray-700"
+                                  active ? "menu-hover" : "",
+                                  "block px-4 py-2 text-sm font-bold cursor-pointer text-gray-600 hover:text-white"
                                 )}
                               >
                                 {user.name.length > 10 ? user.name.slice(0, 9) + '...' : user.name}
@@ -183,20 +183,21 @@ export default function Header() {
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
               {navigation.map((item) => (
+                <Link href={`/${item.href}`}>
                 <Disclosure.Button
                   key={item.name}
-                  as="a"
-                  href={item.href}
+                  as={'button'}
                   className={classNames(
                     item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      ? "bg-white text-black"
+                      : "bg-black text-white hover:bg-[black]/80 hover:text-gray-200",
                     "block px-3 py-2 rounded-md text-base font-medium"
                   )}
                   aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
                 </Disclosure.Button>
+                </Link>
               ))}
             </div>
           </Disclosure.Panel>
