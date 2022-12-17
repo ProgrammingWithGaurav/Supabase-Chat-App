@@ -27,5 +27,9 @@
         @apply bg-[#000]/95 overflow-x-hidden;
     }
 
+    .chat-icon {
+        @apply h-6 w-6 text-gray-200 mx-1 hover:opacity-100 hover:scale-105 transition  ;
+    }
+
 }
 

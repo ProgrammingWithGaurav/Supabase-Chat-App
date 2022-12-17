@@ -1,19 +1,47 @@
-import React, { useContext } from 'react'
-import {UserContext} from '../context/User';
+import React, { useContext, useState } from "react";
+import { UserContext } from "../context/User";
 
 function ChatInput() {
-    const {user} = useContext(UserContext)
-    return (
-        <div className='w-full h-[10vh] flex items-center justify-between md:p-8 lg:p-11 sm:p-4'>
-            <div>
-                <img src={user.photoURL} className='w-10 h-10 rounded-full cursor-pointer hover:opacity-80'/>
-            </div>
-            <div>
-            <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[75vw] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required />
-        </div>
-            <div></div>
-        </div>
-    )
+  const { user, messages, setMessages } = useContext(UserContext);
+  const [message, setMessage] = useState('');
+
+  const sendMessage = (e) => {
+    e.preventDefault();
+
+    if (message.trim().length === 0) return 
+    const newMessage = {
+        message: message,
+        user_uid: user.uid,
+        timestamp: new Date(),
+        id: Math.floor(Math.random() * 1000),
+        name: user.name,
+        photoURL: user.photoURL
+    }
+      setMessages([...messages, newMessage]);
+      console.log(messages)
+      setMessage('');
+  }
+  return (
+    <div className="w-full h-[10vh] flex items-center justify-between md:p-8 lg:p-11 sm:p-4">
+      <div>
+        <img
+          src={user.photoURL}
+          className="w-12 h-12 rounded-full cursor-pointer hover:opacity-80"
+        />
+      </div>
+      <div>
+        <form onSubmit={e => sendMessage(e)}>
+    <input type="text" id="default-input" className="border text-lg block w-[75vw] p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500 focus:outline-none rounded-full"
+     placeholder="Message..."
+     value={message}
+     onChange={e => setMessage(e.target.value)}
+     />
+
+        </form>
+      </div>
+      <div></div>
+    </div>
+  );
 }
 
-export default ChatInput
+export default ChatInput;

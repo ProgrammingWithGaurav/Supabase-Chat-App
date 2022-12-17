@@ -12,9 +12,21 @@ export const UserProvider =  ({ children }) => {
         created_at: 'Fri Dec 16 2022 15:04:02 GMT+0530'
 
     })
+
+    const [messages, setMessages] = useState([
+      {
+        
+        message: 'hi',
+        user_uid: 'user2',
+        timestamp: new Date(),
+        id: Math.floor(Math.random() * 1000),
+        name: user.name,
+        photoURL: user.photoURL
+    }
+    ]);
     return (
         <UserContext.Provider
-          value={{user}}
+          value={{user, messages, setMessages}}
         >
           {children}
         </UserContext.Provider>
