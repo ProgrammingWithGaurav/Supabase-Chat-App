@@ -3,11 +3,11 @@ import React, { useContext } from "react";
 import ReactTimeAgo from "react-time-ago";
 import { UserContext } from "../context/User";
 
-function SenderMessage({name, timestamp, photoURL, message, user_uid:uid}) {
+function Message({name, timestamp, photoURL, message, user_uid:uid}) {
   const {setShowUserProfile, setSelectedUser} = useContext(UserContext);
 
   return (
-    <div className="h-auto hover:shadow-sm flex-row-reverse hover:shadow-gray-900/10 p-2 rounded flex items-center hover:opacity-80 justify-between cursor-pointer group">
+    <div className="h-auto hover:shadow-sm hover:shadow-gray-900/10 p-2 rounded flex items-center hover:opacity-80 justify-between cursor-pointer group">
       <div className='flex items-center'>
         <div className="flex items-center">
           <img
@@ -39,4 +39,4 @@ function SenderMessage({name, timestamp, photoURL, message, user_uid:uid}) {
   );
 }
 
-export default SenderMessage;
+export default Message;

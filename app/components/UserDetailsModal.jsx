@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useContext } from "react";
 import { UserContext } from "../context/User";
 import ReactTimeAgo from "react-time-ago";
 import { WifiIcon } from "@heroicons/react/24/outline";
@@ -43,6 +43,7 @@ export default function UserDetailsModals() {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="max-w-md transform overflow-hidden rounded-2xl bg-transparent text-left align-middle shadow-xl transition-all">
+                  <div>
                     <section className="flex font-medium items-center justify-center h-[75vh]">
                       <section className="w-64 mx-auto rounded-2xl px-8 py-6 shadow shadow-gray-900">
                         <div className="flex items-center justify-between">
@@ -76,6 +77,7 @@ export default function UserDetailsModals() {
                         </p>
                       </section>
                     </section>
+                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
