@@ -7,8 +7,9 @@ import { WifiIcon } from "@heroicons/react/24/outline";
 
 function profile() {
   const { user } = useContext(UserContext);
-  const { photoURL, name, created_at } = user;
+  const { photoURL, name, timestamp } = user;
   const isSecondName = name.split(' ').length >= 2;
+  
   return (
     <div>
       <Head>
@@ -24,7 +25,7 @@ function profile() {
           <section className="w-64 mx-auto rounded-2xl px-8 py-6 shadow shadow-gray-900">
             <div className="flex items-center justify-between">
               <span className="text-gray-400 text-sm">
-                Joined : <ReactTimeAgo date={created_at} locale="en-US" />
+                Joined : <ReactTimeAgo date={timestamp} locale="en-US" />
               </span>
             </div>
             <div className="mt-6 w-fit mx-auto">

@@ -1,10 +1,12 @@
 import Head from 'next/head';
+import { useContext, useEffect } from 'react';
 import ChatInput from '../components/ChatInput';
 import Chats from '../components/Chats';
 import Header from '../components/Header';
-
+import UserDetailsModal from '../components/UserDetailsModal';
 
 export default function Home() {
+
   return (
     <div>
       <Head>
@@ -15,7 +17,8 @@ export default function Home() {
       <div>
         <Header />
         <Chats />
-        <ChatInput />
+        <ChatInput /> 
+        <UserDetailsModal />
       </div>
     </div>
   )
