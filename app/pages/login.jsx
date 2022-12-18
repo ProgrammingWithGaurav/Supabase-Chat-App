@@ -1,9 +1,28 @@
-import React from "react";
+import {useEffect} from "react";
 import GithubIcon from "../components/Icons/GithubIcon";
 import Head from "next/head";
+import { supabase } from "../supabaseClient";
+import { useRouter } from "next/router";
 
 function login() {
-  const loginWithGithub = () => {};
+  const router = useRouter();
+  useEffect(() => {
+    const getData = async () => {
+      const {data} = await supabase.auth.getSession();
+      console.log(data)
+      if(data.session?.user) {
+        router.push('/');
+        console.log(data.session)
+      }
+
+    }
+    getData()
+  }, )
+  const loginWithGithub = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: "github",
+    });
+  };
   return (
     <>
       <Head>

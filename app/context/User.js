@@ -1,16 +1,18 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
+import { supabase } from "../supabaseClient";
 
 export const UserContext = createContext();
 
 
 export const UserProvider =  ({ children }) => {
-    const [user, setUser] = useState({
-        name: "Tommy",
-        email: "myemail@email.com",
-        uid: 'user1',
-        photoURL: 'https://images.unsplash.com/photo-1671314888213-7e724de48113?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=500&q=60',
-        timestamp: 'Fri Dec 16 2022 15:04:02 GMT+0530'
+    const [user, setUser] = useState({})
 
+    useEffect(() => {
+      const getData = async () => {
+        const {data} = await supabase.auth.getSession();
+        setUser(data.session?.user)
+      }
+      getData()
     })
 
     const [showUserProfile, setShowUserProfile] = useState(false);

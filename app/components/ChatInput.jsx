@@ -11,11 +11,11 @@ function ChatInput() {
     if (message.trim().length === 0) return 
     const newMessage = {
         message: message,
-        user_uid: user.uid,
+        user_uid: user.id,
         timestamp: new Date(),
         id: Math.floor(Math.random() * 1000),
-        name: user.name,
-        photoURL: user.photoURL
+        name: user.user_metadata.full_name,
+        photoURL: user.user_metadata.avatar_url
     }
       setMessages([...messages, newMessage]);
       console.log(messages)

@@ -1,14 +1,27 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect } from "react";
 import Header from "../components/Header";
 import { UserContext } from "../context/User";
 import ReactTimeAgo from 'react-time-ago';
 import Head from 'next/head';
 import { WifiIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/router";
+import {supabase} from '../supabaseClient';
 
 function profile() {
   const { user } = useContext(UserContext);
-  const { photoURL, name, timestamp } = user;
-  const isSecondName = name.split(' ').length >= 2;
+  const isSecondName = user.user_metadata.user_name.split(' ').length >= 2;
+
+  const router = useRouter();
+  useEffect(() => {
+    const getData = async () => {
+      const {data} = await supabase.auth.getSession();
+      if(!data.session?.user) {
+        router.push('/login');
+      }
+
+    }
+    getData()
+  }, )
   
   return (
     <div>
@@ -25,12 +38,12 @@ function profile() {
           <section className="w-64 mx-auto rounded-2xl px-8 py-6 shadow shadow-gray-900">
             <div className="flex items-center justify-between">
               <span className="text-gray-400 text-sm">
-                Joined : <ReactTimeAgo date={timestamp} locale="en-US" />
+                Joined : <ReactTimeAgo date={user.created_at} locale="en-US" />
               </span>
             </div>
             <div className="mt-6 w-fit mx-auto">
               <img
-                src={photoURL}
+                src={user.user_metadata.avatar_url}
                 className="rounded-full w-28 "
                 alt="profile picture"
               />
