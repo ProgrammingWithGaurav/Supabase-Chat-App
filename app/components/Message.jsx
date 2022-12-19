@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import ReactTimeAgo from "react-time-ago";
 import { UserContext } from "../context/User";
 
-function Message({name, timestamp, photoURL, message, user_uid:uid}) {
+function Message({full_name, user_name, user_joined, timestamp, photoURL, message, user_uid:uid}) {
   const {setShowUserProfile, setSelectedUser} = useContext(UserContext);
 
   return (
@@ -15,16 +15,16 @@ function Message({name, timestamp, photoURL, message, user_uid:uid}) {
             className="rounded-full w-10 h-10 mr-2"
             alt="profile Pic"
             onClick={() => {
-              setSelectedUser({name, timestamp, photoURL, uid, isOnline: true})
+              setSelectedUser({full_name, user_name, user_joined, photoURL, uid, isOnline: true})
               setShowUserProfile(true);
             }}
           />
         </div>
         <div className="flex flex-col justify-center">
           <div className="flex items-center">
-            <p className="font-semibold text-[15px] text-white mx-2">{name}</p>
+            <p className="font-semibold text-[15px] text-white mx-2">{user_name}</p>
             <span className="text-gray-600 text-[10px] mx-1 font-bold">
-            <ReactTimeAgo date={timestamp} locale="en-US" />
+            <ReactTimeAgo date={timestamp } locale="en-US" />
             </span>
           </div>
           <p className="text-gray-100 ml-2">{message}</p>

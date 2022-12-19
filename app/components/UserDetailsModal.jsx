@@ -5,11 +5,10 @@ import ReactTimeAgo from "react-time-ago";
 import { WifiIcon } from "@heroicons/react/24/outline";
 
 export default function UserDetailsModals() {
-  const { showUserProfile, setShowUserProfile, user , selectedUser} = useContext(UserContext);
+  const { showUserProfile, setShowUserProfile, user, selectedUser } =
+    useContext(UserContext);
 
-  const { photoURL, name, timestamp } = selectedUser;
-
-  const isSecondName = name.split(" ").length >= 2;
+  const { photoURL, full_name, user_name, user_joined } = selectedUser;
 
   return (
     <>
@@ -49,7 +48,7 @@ export default function UserDetailsModals() {
                         <div className="flex items-center justify-between">
                           <span className="text-gray-400 text-sm">
                             Joined :{" "}
-                            <ReactTimeAgo date={timestamp} locale="en-US" />
+                            <ReactTimeAgo date={user_joined} locale="en-US" />
                           </span>
                         </div>
                         <div className="mt-6 w-fit mx-auto">
@@ -61,15 +60,15 @@ export default function UserDetailsModals() {
                         </div>
 
                         <div className="mt-8 ">
-                          <h2 className="text-white font-bold text-2xl tracking-wide">
-                            {isSecondName ? (
-                              <>
-                                {multiple_name[0]} <br /> {multiple_name[1]}
-                              </>
-                            ) : (
-                              name
-                            )}
-                          </h2>
+                          <div>
+                            <span className="text-white text-sm">
+                              {user_name}
+                            </span>
+                            <br />
+                            <span className="text-gray-200 text-sm font-light ">
+                              {full_name}
+                            </span>
+                          </div>
                         </div>
                         <p className="text-emerald-400 font-semibold mt-2.5 flex items-center justify-between">
                           Active

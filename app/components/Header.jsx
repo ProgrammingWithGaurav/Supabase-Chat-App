@@ -1,6 +1,7 @@
 import { Fragment, useContext } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import {
+  ArrowLeftOnRectangleIcon,
   Bars3Icon,
   BellIcon,
   ChatBubbleOvalLeftEllipsisIcon,
@@ -11,6 +12,7 @@ import {
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { UserContext } from "../context/User";
+import { supabase } from "../supabaseClient";
 
 const navigation = [{ name: "Chats", href: "/", current: true }, { name: "Profile", href: "/profile", current: false }];
 
@@ -102,8 +104,8 @@ export default function Header() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src={user.user_metadata.avatar_url}
-                        alt=""
+                        src={user?.user_metadata?.avatar_url}
+                        alt="User Profile Picture"
                       />
                     </Menu.Button>
                   </div>
@@ -174,7 +176,25 @@ export default function Header() {
                             </Link>
                           )}
                         </Menu.Item>
+                        
                       ))}
+
+                       <Menu.Item>
+                        {({ active }) => (
+                          <div
+                          onClick={async () => {
+                              await supabase.auth.signOut();
+                              router.push('/login')
+                          }}
+                            className={classNames(
+                              active ? "menu-hover" : "",
+                              "menu-item"
+                            )}
+                          >
+                            Signout <ArrowLeftOnRectangleIcon className="h-6 w-6" />
+                          </div>
+                        )}
+                      </Menu.Item>
                     </Menu.Items>
                   </Transition>
                 </Menu>

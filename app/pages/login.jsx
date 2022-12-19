@@ -10,7 +10,7 @@ function login() {
     const getData = async () => {
       const {data} = await supabase.auth.getSession();
       console.log(data)
-      if(data.session?.user) {
+      if(data?.session?.user) {
         router.push('/');
         console.log(data.session)
       }
