@@ -15,7 +15,6 @@ export default function Home() {
       if(!data.session?.user) {
         router.push('/login');
       }
-
     }
     getData()
   }, )

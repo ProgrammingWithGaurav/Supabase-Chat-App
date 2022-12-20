@@ -1,10 +1,22 @@
 import { createContext, useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
+import useSWR from "swr";
 
 export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  const [messages, setMessages] = useState([]);
   const [user, setUser] = useState({});
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+  const { data, error } = useSWR("/api/getMessages", fetcher, {
+    refreshInterval: 200,
+  });
+  useEffect(() => {
+    if (!data) return;
+    setMessages(data.data);
+    console.log(data)
+  }, [data]);
 
   useEffect(() => {
     const getData = async () => {
@@ -13,13 +25,7 @@ export const UserProvider = ({ children }) => {
     };
     getData();
   }, []);
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await supabase.from("chats").select();
-      setMessages(data);
-    };
-    getData();
-  }, []);
+
 
   const [showUserProfile, setShowUserProfile] = useState(false);
   const [selectedUser, setSelectedUser] = useState({
@@ -31,7 +37,6 @@ export const UserProvider = ({ children }) => {
     uid: "",
   });
 
-  const [messages, setMessages] = useState([]);
   return (
     <UserContext.Provider
       value={{

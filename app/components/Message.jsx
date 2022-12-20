@@ -24,7 +24,7 @@ function Message({full_name, user_name, user_joined, timestamp, photoURL, messag
           <div className="flex items-center">
             <p className="font-semibold text-[15px] text-white mx-2">{user_name}</p>
             <span className="text-gray-600 text-[10px] mx-1 font-bold">
-            <ReactTimeAgo date={timestamp } locale="en-US" />
+            {new Date(timestamp).toUTCString()}
             </span>
           </div>
           <p className="text-gray-100 ml-2">{message}</p>
