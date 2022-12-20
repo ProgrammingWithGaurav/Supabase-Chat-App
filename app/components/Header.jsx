@@ -22,7 +22,7 @@ function classNames(...classes) {
 
 const users = [
   {
-    name: "Jane Cooper",
+    name: "Gaurav",
     id: "1a",
     isOnline: true,
     photoURL: 'https://avatars.githubusercontent.com/u/88154142?v=4'
